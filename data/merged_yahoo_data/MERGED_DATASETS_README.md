@@ -1,7 +1,14 @@
 # Merged Yahoo News Datasets
 
+## Download
+
+[Download Yahoo_news_data.zip (Google Drive)](https://drive.google.com/file/d/1O7zZFsQELdS0WqRhJn-KW6a1-eYnZcXL/view?usp=sharing)
+
+---
+
 ## Overview
 Two merged datasets combining Yahoo Finance stock price data (2018-2023) with news articles.
+
 ---
 
 ## Files
