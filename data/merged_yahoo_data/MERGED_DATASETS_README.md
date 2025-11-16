@@ -7,7 +7,7 @@ Two merged datasets combining Yahoo Finance stock price data (2018-2023) with ne
 ## Files
 
 ### 1. `merged_yahoo_news.csv`
-**Complete dataset with all trading days**
+**Complete dataset with all the trading days**
 - **Rows:** 602,962
 - **Contains:** All ticker-date combinations from Yahoo Finance
 - **News coverage:** 36,815 rows have news (6.1%), 566,147 rows have no news (93.9%)
