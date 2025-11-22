@@ -8,105 +8,141 @@
 % title page
 \begin{titlepage}
     \begin{center}
-        \Huge
-        \textbf{ETF Prediction and Trajectory Project}
-
         \LARGE
-        \vspace{5pt}
-        ECS 171
+        \textbf{Quantifying ETF Relationships Under Macroeconomic News: Statistical Analysis Using Market Indicators}
+
+        % \LARGE
+        % \vspace{5pt}
+        % ECS 171
 
         \normalsize
 
-        \vspace{10pt}
-        Owen Holt, Dylan Lim, etc.. \\
+        \vspace{40pt}
+        \textbf{Team}: Honore Alexander, Owen Holt, Pranavi Khanna,  Dylan Lim, Yihong Li, Ethan Lee, Dan Firstenberg, Hyeongseung Nam, Oscar Pineda, Kevin Zhang, Zachary Chan, Vicente Aguayo\\
 
-        \vspace{10pt}
-        November XX, 2025
-        
+        \vspace{25pt}
+        November 20th, 2025
+    
         \vspace{40pt}
         \textbf{Abstract} \\
-        Understanding the response of financial assets to macroeconomic news 
-        events such as interest rate announcements is extremely important for 
-        investors. \\
-        
-        - 2-3 sentences that contain a high-level description of how you 
-        address the problem (your method) \\
-        
-        - 2-3 sentences on results \\
-
-        - 1 sentence on broader impact (how this project/advance achieved by this 
-        project could influence the field) \\
-
-
+        \vspace{10pt}
 
     \end{center}
+        \raggedright
+   Within recent years, machine learning has emerged as one of the most powerful tools in predicting stock performances for investors. Such machine learning algorithms integrate market data, financial reports, and macroeconomic data to predict stock movement and volatility; however leading methods systematically overreact to macroeconomic news or fail to take it into account completely. A central aim of our project is to quantify how exchange-traded fund (ETF) relationships reflect underlying macroeconomic conditions, and how these relationships influence individual stock behavior. To address this limitation, we constructed a data management process linking historical company-specific news headlines to corresponding stock performance data across 60 individual tickers.
+   
+   (Add 1-2 more sentences for method once done with ML side) 
+(Add 2-3 more sentences on results)
+  
+
+\vfill
+
+% Horizontal line and keywords at bottom
+\hrule
+\vspace{0.5cm}
+\noindent
+\textbf{Keywords:} Machine Learning, Exchange-Traded Funds(ETF’s), Batch Gradient Descent, Ordinary Least Squares 
+
+
+
 \end{titlepage}
 
 % report page 1 begins
 \newpage
 
+
 \large
-\textbf{1 Introduction} \\
+\noindent
+\textbf{1 Introduction}\\
 \normalsize
-- 1-2 sentences on general area \\
-- 1-2 sentences on specific sub area \\
-- 1 paragraph on specific problem and how it has been addressed so far \\
-- 1-2 sentences to a paragraph on what is missing from current approaches and 
-why this is important \\
-- 1 paragraph on what this paper contributes, how we approach this problem,
-and results of the approach. should have clear defeinite claims on what we
-have achieved relative to what we claimed was missing
+
+Machine learning has become a staple in the field of quantitative finance, especially for the prediction of stock prices, market trends, and volatility. These models are exceptionally powerful at detecting and representing complex patterns in large datasets, and often outperform traditional analysis techniques (such as econometrics) from other fields such as economics and statistics[13]. 
+
+One of the biggest challenges is training a model that can accurately predict stock prices, given the instability and unpredictability of the stock market. Obvious approaches, such as using historical stock prices as the training dataset, have been attempted but these endeavours are often difficult due to factors such as dataset noise which makes data preprocessing very difficult. Naturally, stock prices and market prices are also often affected by other factors such as unexpected economic or social events, and investors’ psychological behaviors [14].
+
+When it comes to modeling and predicting stocks behaviors based on news events, it’s an extremely complex endeavor due to factors such as high variance of macroeconomic event impact, diversity of economic news publications, and complex interactions beyond just macroeconomic news and stock prices. For example, a model based on a Long Short-Term Memory (LSTM) architecture trained in 2023 attempting to predict individual stock prices based on stock-related news only achieved an accuracy of around 55\% despite surpassing baseline models [12], still beating, which is only a bit better than a coin flip. This approach can be limiting because individual stock prices can easily fluctuate due to factors such as company-specific news or events. \\
+
+
 
 
 \large
+\noindent
 \textbf{2 Methods} \\
 \normalsize
-Divide it into sections that are well-defined around distinct components, algorithms,
-sub-problems. Put references whenever you use/step on previously published work. Use sub-
-section numbering (3.1, 3.2, etc.). Describe your algorithms and methods fully so that if anyone
-wants to reproduce your results, they can do so (if there are many parameters, consider includ-
-ing a parameter file as supplementary material).
+
 
 \large
+\noindent
 \textbf{3 Results} \\
 \normalsize
-This should only describe the results that you have obtained. Sometimes it makes
-sense to discuss your interpretation of why this is happening, but this should be rare. This sec-
-tion should only present the facts about performance, robustness, and complexity.
 
 \large
+\noindent
 \textbf{4 Discussion} \\
 \normalsize
-This is where you discuss everything that was presented in the Results section. Ex-
-plain why the algorithm performed better in X and not in Y. It is ok to succinctly restate strong
-result claims (that were included in the previous section), as long as you continue to explain,
-even speculate, why this may be the case. For example: "Our algorithm was faster in X% of the
-scenarios than what is currently available. The main driver behind this performance boost is
-the Y module, which takes advantage of the Z characteristic of the problem. Indeed, ..."
 
-\large
+\large 
+\noindent
 \textbf{5 Conclusion} \\
 \normalsize
-Finally, in what some papers refer to as "Conclusion," provide 1-2 sentences summarizing the
-purpose of this report and 1-2 sentences on what was achieved (these 2-4 sentences are usually
-similar to, or restate, what was said in the abstract). Then discuss what remains to be done (the
-road ahead), why (the impact to the field), and how you think it can be achieved (future work).
-End the report with 1-2 sentences on how the work presented advances the field in the grand
-scheme of things
 
-\large
-\textbf{6 References} \\
-\normalsize
-Please include all relevant references to provide a succinct and accurate summary
-2
-of past work and challenges in the field. Research has found that the more articles you cite, the
-more you will be cited as well. For this report you are expected to have 10-20 references.
 
+\newpage
 \large
-\textbf{7 Author Contributions} \\
+\noindent
+\textbf{References} 
 \normalsize
-Clearly state what the contributions of each author are. Since you are
-working in large teams, this is the only place where I can see who did what.
+\raggedright
+\begin{enumerate}
+    \item Babina, Tania, et al. “Https://Www.Sciencedirect.Com/Science/Article/Abs/Pii/S1047847720300046?Via=ihub.” Aritficial Intelligence, Firm Growth, and Product Innovation, Jan. 2024, https://www.sciencedirect.com/science/article/pii/S0304405X2300185X.
+    
+    \item Begenau, Juliane, et al. “Big Data in Finance and the Growth of Large Firms.” ScienceDirect, Aug. 2018, https://www.sciencedirect.com/science/article/abs/pii/S0304393218302174.
+    
+    \item Caplin, Andrew, et al. “Modeling Machine Lerning: A Cognitive Economic Approach.” Science Direct, Mar. 2025, https://www.sciencedirect.com/science/article/pii/S002205312500016X.
+    
+    \item Chen, Qi, et al. “Price Informativeness and Investment Sensitivity to Stock Price Qi Chen.” Finance.Wharton.Upenn.Edu, July 2006, https://finance.wharton.upenn.edu/~itayg/Files/informativeness-published.pdf.
+    
+    \item Das, Sanjiv, et al. “Algorithmic Fairness | Annual Reviews.” Annualreviews.Org, Nov. 2023, https://www.annualreviews.org/content/journals/10.1146/annurev-financial-110921-125930.
+    
+    \item Greenwald, Daniel, et al. “Regulatory Arbitrage or Random Errors? Implications of Race Prediction Algorithms in Fair Lending Analysis.” ScienceDirect, July 2024, https://www.sciencedirect.com/science/article/abs/pii/S0304405X24000801.
+    
+    \item Mehrabi, Ninareh, et al. “A Survey on Bias and Fairness in Machine Learning | ACM Computing Surveys.” ACM Digital Library, July 2021, https://dl.acm.org/doi/10.1145/3457607.
+    
+    \item Mitchell, Shira, et al. “Algorithmic Fairness: Choices, Assumptions, and Definitions | Annual Reviews.” AnnualReviews, Mar. 2021, https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042720-125902.
+    
+    \item Suresh, Harini, and John Guttag. “A Framework for Understanding Sources of Harm Throughout.” Arxiv.Org, 2021, https://arxiv.org/pdf/1901.10002.
+    
+    \item van Binsbergen, Jules H, et al. “Man versus Machine Learning: The Term Structure of Earnings Expectations and Conditional Biases | the Review of Financial Studies | Oxford Academic.” Oxford Academic, June 2023, https://academic.oup.com/rfs/article/36/6/2361/6782974.
+    
+    \item Yang, Keer. “Behavioral Machine Learning? Computer Predictions of Corporate Earnings Also Overreact.” Papers.SSRN, 12 Apr. 2023, https://papers.ssrn.com/sol3/papers.cfm?abstract\_id=4395903.
+    
+    \item Usmani, Shazia, and Jawwad A Shamsi. “LSTM based stock prediction using weighted and categorized financial news.” PloS one vol. 18,3 e0282234. 7 Mar. 2023, doi:10.1371/journal.pone.0282234.
+    
+    \item Weijia (Vivian) Li \& Kara M. Kockelman, 2022. "How does machine learning compare to conventional econometrics for transport data sets? A test of ML versus MLE," Growth and Change, Wiley Blackwell, vol. 53(1), pages 342-376, March.
+    
+    \item Saberironaghi, M.; Ren, J.; Saberironaghi, A. Stock Market Prediction Using Machine Learning and Deep Learning Techniques: A Review. AppliedMath 2025, 5, 76. https://doi.org/10.3390/appliedmath5030076.
+\end{enumerate} 
+
+
+\vspace{20pt}
+\large
+\noindent
+\textbf{Author Contributions} 
+\normalsize
+\begin{itemize}
+    \item \textbf{Honore Alexander}
+    \item \textbf{Owen Holt}
+    \item \textbf{Pranavi Khanna}
+    \item \textbf{Dylan Lim}
+    \item \textbf{Yihong Li}: Researched sources, drafted report sections, set up and created frontend interface for model demo
+    \item \textbf{Ethan Lee}
+    \item \textbf{Dan Firstenberg}
+    \item \textbf{Hyeongseung Nam}
+    \item \textbf{Oscar Pineda}: Researched sources for the report, contributed to writing the report
+    \item \textbf{Kevin Zhang}
+    \item \textbf{Zachary Chan}
+    \item \textbf{Vicente Aguayo}
+\end{itemize}
 
 
 
