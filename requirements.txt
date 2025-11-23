@@ -17,3 +17,5 @@ joblib
 click
 nbformat
 jupyter
+yfinance
+streamlit
