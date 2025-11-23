@@ -1,0 +1,25 @@
+data:
+  raw_csv: "/NEWS-MARKET-PREDICTIONS/data/merged_yahoo_data/merged_yahoo_news_combined__news_only.csv"
+  processed_dir: "data/processed"
+  embeddings_dir: "data/embeddings"
+
+model:
+  embedding_model: "yiyanghkust/finbert-tone"
+  embedding_batch_size: 16
+  max_headline_length: 128
+  hidden_dim: 256
+  dropout: 0.3
+  lr: 0.001
+  batch_size: 64
+  epochs: 10
+
+training:
+  device: "auto"
+  seed: 42
+  train_split_date: "2020-06-01"
+  val_split_date: "2021-06-01"
+
+backtest:
+  threshold_long: 0.55
+  threshold_short: 0.45
+  trade_size: 1.0
