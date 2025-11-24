@@ -1,8 +1,8 @@
-\documentclass[letterpaper,12pt]{report}
+\documentclass[letterpaper,12pt, twocolumn]{report}
 
-\usepackage[a4paper, margin=1in]{geometry} 
+\usepackage[a4paper, margin=0.8in]{geometry} 
 
-
+\setlength{\columnsep}{0.5cm} % increase column gap
 \begin{document}
 
 % title page
@@ -56,19 +56,19 @@
 \textbf{1 Introduction}\\
 \normalsize
 
-Machine learning has become a staple in the field of quantitative finance, especially for the prediction of stock prices, market trends, and volatility. These models are exceptionally powerful at detecting and representing complex patterns in large datasets, and often outperform traditional analysis techniques (such as econometrics) from other fields such as economics and statistics[13]. 
-
-One of the biggest challenges is training a model that can accurately predict stock prices, given the instability and unpredictability of the stock market. Obvious approaches, such as using historical stock prices as the training dataset, have been attempted but these endeavours are often difficult due to factors such as dataset noise which makes data preprocessing very difficult. Naturally, stock prices and market prices are also often affected by other factors such as unexpected economic or social events, and investors’ psychological behaviors [14].
-
-When it comes to modeling and predicting stocks behaviors based on news events, it’s an extremely complex endeavor due to factors such as high variance of macroeconomic event impact, diversity of economic news publications, and complex interactions beyond just macroeconomic news and stock prices. For example, a model based on a Long Short-Term Memory (LSTM) architecture trained in 2023 attempting to predict individual stock prices based on stock-related news only achieved an accuracy of around 55\% despite surpassing baseline models [12], still beating, which is only a bit better than a coin flip. This approach can be limiting because individual stock prices can easily fluctuate due to factors such as company-specific news or events. \\
-
-
 
 
 \large
 \noindent
 \textbf{2 Methods} \\
 \normalsize
+To train our model, we followed a conventional machine learning development model.
+
+\noindent
+\textbf{2.1 Data Sourcing and Preprocessing}\\
+\textit{2.1.1 Dataset Identification}\\
+text here \\
+\textit{2.1.1 Dataset Merging} \\
 
 
 \large
@@ -94,47 +94,27 @@ When it comes to modeling and predicting stocks behaviors based on news events, 
 \normalsize
 \raggedright
 \begin{enumerate}
-    \item Babina, Tania, et al. “Https://Www.Sciencedirect.Com/Science/Article/Abs/Pii/S1047847720300046?Via=ihub.” Aritficial Intelligence, Firm Growth, and Product Innovation, Jan. 2024, https://www.sciencedirect.com/science/article/pii/S0304405X2300185X.
-    
-    \item Begenau, Juliane, et al. “Big Data in Finance and the Growth of Large Firms.” ScienceDirect, Aug. 2018, https://www.sciencedirect.com/science/article/abs/pii/S0304393218302174.
-    
-    \item Caplin, Andrew, et al. “Modeling Machine Lerning: A Cognitive Economic Approach.” Science Direct, Mar. 2025, https://www.sciencedirect.com/science/article/pii/S002205312500016X.
-    
-    \item Chen, Qi, et al. “Price Informativeness and Investment Sensitivity to Stock Price Qi Chen.” Finance.Wharton.Upenn.Edu, July 2006, https://finance.wharton.upenn.edu/~itayg/Files/informativeness-published.pdf.
-    
-    \item Das, Sanjiv, et al. “Algorithmic Fairness | Annual Reviews.” Annualreviews.Org, Nov. 2023, https://www.annualreviews.org/content/journals/10.1146/annurev-financial-110921-125930.
-    
-    \item Greenwald, Daniel, et al. “Regulatory Arbitrage or Random Errors? Implications of Race Prediction Algorithms in Fair Lending Analysis.” ScienceDirect, July 2024, https://www.sciencedirect.com/science/article/abs/pii/S0304405X24000801.
-    
-    \item Mehrabi, Ninareh, et al. “A Survey on Bias and Fairness in Machine Learning | ACM Computing Surveys.” ACM Digital Library, July 2021, https://dl.acm.org/doi/10.1145/3457607.
-    
-    \item Mitchell, Shira, et al. “Algorithmic Fairness: Choices, Assumptions, and Definitions | Annual Reviews.” AnnualReviews, Mar. 2021, https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042720-125902.
-    
-    \item Suresh, Harini, and John Guttag. “A Framework for Understanding Sources of Harm Throughout.” Arxiv.Org, 2021, https://arxiv.org/pdf/1901.10002.
-    
-    \item van Binsbergen, Jules H, et al. “Man versus Machine Learning: The Term Structure of Earnings Expectations and Conditional Biases | the Review of Financial Studies | Oxford Academic.” Oxford Academic, June 2023, https://academic.oup.com/rfs/article/36/6/2361/6782974.
-    
-    \item Yang, Keer. “Behavioral Machine Learning? Computer Predictions of Corporate Earnings Also Overreact.” Papers.SSRN, 12 Apr. 2023, https://papers.ssrn.com/sol3/papers.cfm?abstract\_id=4395903.
-    
-    \item Usmani, Shazia, and Jawwad A Shamsi. “LSTM based stock prediction using weighted and categorized financial news.” PloS one vol. 18,3 e0282234. 7 Mar. 2023, doi:10.1371/journal.pone.0282234.
-    
+    \item Usmani, Shazia, and Jawwad A Shamsi. “LSTM based stock prediction using weighted and categorized financial news.” PloS one vol. 18,3 e0282234. 7 Mar. 2023, 
     \item Weijia (Vivian) Li \& Kara M. Kockelman, 2022. "How does machine learning compare to conventional econometrics for transport data sets? A test of ML versus MLE," Growth and Change, Wiley Blackwell, vol. 53(1), pages 342-376, March.
-    
-    \item Saberironaghi, M.; Ren, J.; Saberironaghi, A. Stock Market Prediction Using Machine Learning and Deep Learning Techniques: A Review. AppliedMath 2025, 5, 76. https://doi.org/10.3390/appliedmath5030076.
+    \item Saberironaghi, M.; Ren, J.; Saberironaghi, A. Stock Market Prediction Using Machine Learning and Deep Learning Techniques: A Review. AppliedMath 2025, 5, 76. 
+    \item Suresh, Harini, and John Guttag. “A Framework for Understanding Sources of Harm Throughout.” Arxiv.Org, 2021,
+    \item Chen, Qi, et al. “Price Informativeness and Investment Sensitivity to Stock Price Qi Chen.” Finance.Wharton.Upenn.Edu, July 2006, 
+    \item Malanin, V. Comparative study of neural network architectures in medical survival analysis: Evaluation of MLP, CNN, and LSTM models. International Journal of Neural Networks and Deep Learning, 2(2), 24–43, 2025, 
 \end{enumerate} 
 
 
+\newpage
 \vspace{20pt}
 \large
 \noindent
 \textbf{Author Contributions} 
 \normalsize
 \begin{itemize}
-    \item \textbf{Honore Alexander}
+    \item \textbf{Honoré Alexander}: Led backend development of neural network system, handling embeddings, deriving price features, and optimizing model to predict if the stock will close higher or lower.
     \item \textbf{Owen Holt}
     \item \textbf{Pranavi Khanna}
-    \item \textbf{Dylan Lim}
-    \item \textbf{Yihong Li}: Researched sources, drafted report sections, set up and created frontend interface for model demo
+    \item \textbf{Dylan Lim}: Created application and backend for model inference, designed the initial frontend. Other contributions to source research and technical report documentation.
+    \item \textbf{Yihong Li}: Researched sources and drafted most of the technical report sections. Set up LaTeX and formatted the report. Set up and designed frontend for model inference.
     \item \textbf{Ethan Lee}
     \item \textbf{Dan Firstenberg}
     \item \textbf{Hyeongseung Nam}
@@ -148,4 +128,5 @@ When it comes to modeling and predicting stocks behaviors based on news events, 
 
 
 \end{document}
+
 
