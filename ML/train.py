@@ -52,7 +52,7 @@ def train_model(model, train_loader, val_loader, device, epochs, lr):
             optimizer.step()
             
             train_loss += loss.item()
-            predictions = (outputs > 0.5).float()
+            predictions = (outputs > 0.50).float()
             train_correct += (predictions == labels).sum().item()
             train_total += labels.size(0)
         
@@ -103,8 +103,6 @@ def main():
     if device_str == 'auto':
         if torch.cuda.is_available():
             device_str = 'cuda'
-        elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
-            device_str = 'mps'
         else:
             device_str = 'cpu'
     

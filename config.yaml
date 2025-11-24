@@ -4,7 +4,7 @@ data:
   embeddings_dir: "data/embeddings"
 
 model:
-  embedding_model: "yiyanghkust/finbert-tone"
+  embedding_model: "yiyanghkust/finbert-tone" #embedding model
   embedding_batch_size: 16
   max_headline_length: 128
   hidden_dim: 256
