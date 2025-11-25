@@ -15,6 +15,78 @@ try:
 except ImportError:
     from dataset import NewsDataset
     from model import NewsClassifier
+    
+        
+def eval_model(model, data_loader):
+    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, classification_report
+    MODEL_PATH = './models/news_classifier.pt'
+    
+    model.eval()
+    
+
+    results_true = []
+    results_prob = []
+
+    with torch.no_grad():
+        for batch in data_loader:
+            emb = batch["emb"].cpu()
+            price = batch["price"].cpu()
+            labels = batch["label"].cpu()
+
+            probs = model(emb, price)
+
+            results_true.append(labels.cpu())
+            results_prob.append(probs.cpu())
+
+    y_true = torch.cat(results_true).numpy()
+    y_prob = torch.cat(results_prob).numpy()
+    y_pred = (y_prob > 0.5).astype(int)
+
+    return {
+        "accuracy": accuracy_score(y_true, y_pred),
+        "precision": precision_score(y_true, y_pred),
+        "recall": recall_score(y_true, y_pred),
+        "f1": f1_score(y_true, y_pred),
+        "auc": roc_auc_score(y_true, y_prob),
+        "classification_report": classification_report(y_true, y_pred),
+    }, y_true, y_prob
+
+def plot_evaluations(evaluations, y_true, y_prob):
+    import matplotlib.pyplot as plt
+    from sklearn.metrics import roc_curve, auc, precision_recall_curve
+    
+    # auc
+    false_pos_rate, true_pos_rate, _ = roc_curve(y_true, y_prob)
+    roc_auc = auc(false_pos_rate, true_pos_rate)
+    plt.figure()
+    plt.plot(false_pos_rate, true_pos_rate, label=f"AUC = {roc_auc:.3f}")
+    plt.plot([0,1], [0,1])
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("ROC")
+    plt.legend()
+    plt.grid()
+    plt.show()
+    
+    # precision recall curve
+    precision, recall, _ = precision_recall_curve(y_true, y_prob)
+
+    plt.figure()
+    plt.plot(recall, precision)
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.title("Precision Recall Curve Plot")
+    plt.grid()
+    plt.show()
+    
+    # prob distirbutions
+    plt.figure()
+    plt.hist(y_prob, bins=25)
+    plt.title("Probabilities")
+    plt.xlabel("Probability")
+    plt.ylabel("Frequency")
+    plt.grid()
+    plt.show()
 
 def train_model(model, train_loader, val_loader, device, epochs, lr):
     # simple gradient descent with adam optimizer
@@ -164,6 +236,11 @@ def main():
     model_path.mkdir(exist_ok=True)
     torch.save(model.state_dict(), model_path / 'news_classifier.pt')
     print(f'Model saved to {model_path / "news_classifier.pt"}')
+    
+ # generate evaluation metrics plots
+    evals, y_true, y_prob = eval_model(model, val_loader)
+    print(evals["classification_report"])
+    plot_evaluations(evals, y_true, y_prob)
 
 
 if __name__ == '__main__':

@@ -9,9 +9,9 @@ model:
   max_headline_length: 128
   hidden_dim: 256
   dropout: 0.3
-  lr: 0.001
+  lr: 0.00001
   batch_size: 64
-  epochs: 10
+  epochs: 50
 
 training:
   device: "auto"
