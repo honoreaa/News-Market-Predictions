@@ -114,7 +114,7 @@ function LivePredictionSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [result, setResult] = useState(null);
-  
+
   const [tickerTomorrow, setTickerTomorrow] = useState('AAPL');
   const [loadingTomorrow, setLoadingTomorrow] = useState(false);
   const [errorTomorrow, setErrorTomorrow] = useState('');

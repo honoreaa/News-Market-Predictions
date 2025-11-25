@@ -118,7 +118,7 @@ def get_text_embedding(text: str, tokenizer, bert_model) -> torch.Tensor:
         bert_model: FinBERT model
         
     Returns:
-        768-dimensional embedding tensor
+        768-dimensional embedding tensor on CPU
     """
     inputs = tokenizer(
         text,
@@ -128,6 +128,10 @@ def get_text_embedding(text: str, tokenizer, bert_model) -> torch.Tensor:
         max_length=128,
     )
     
+    # Move inputs to same device as model (CPU)
+    device = next(bert_model.parameters()).device
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+    
     outputs = bert_model(**inputs)
     last_hidden = outputs.last_hidden_state
     attention_mask = inputs["attention_mask"].unsqueeze(-1)
@@ -135,7 +139,8 @@ def get_text_embedding(text: str, tokenizer, bert_model) -> torch.Tensor:
     counts = attention_mask.sum(1).clamp(min=1)
     embedding = summed / counts
     
-    return embedding
+    # Ensure output is on CPU for consistency with main model
+    return embedding.cpu()
 
 
 def get_aggregated_embedding(headlines: List[str], tokenizer, bert_model) -> torch.Tensor:

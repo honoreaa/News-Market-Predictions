@@ -35,66 +35,11 @@ Note: The backend loads everything into memory at startup, so it might take a mo
 ## Live Prediction Feature
 
 The `/predict-tomorrow` endpoint uses live news data from Finnhub. To enable this feature:
+   Make a .env with:
+      FINNHUB_API_KEY=d4j1ca1r01queual28cgd4j1ca1r01queual28d0
 
-1. Get a free API key from [Finnhub](https://finnhub.io/register)
-2. Create a `.env` file in the project root:
-   ```
-   FINNHUB_API_KEY=your_api_key_here
-   ```
 3. Start the backend:
-   ```bash
    uvicorn ML.api:app --reload
-   ```
 
 The free tier allows 60 API calls per minute, which is sufficient for testing and moderate usage.
 
-# Cloud Run Deployment
-
-Backend (FastAPI + Torch)
-
-1. Build and push the container (run from repo root):
-
-   ```bash
-   gcloud config set project newsmarketpredictions
-   gcloud builds submit \
-     --tag gcr.io/newsmarketpredictions/news-api \
-     .
-   ```
-
-2. Deploy to Cloud Run (remember to allow unauthenticated access):
-
-   ```bash
-   gcloud run deploy news-api \
-     --image gcr.io/newsmarketpredictions/news-api \
-     --region=us-west1 \
-     --allow-unauthenticated \
-     --port=8080 \
-     --set-env-vars FINNHUB_API_KEY=your_api_key_here
-   ```
-
-   Copy the resulting URL; it becomes the `VITE_API_URL` for the frontend build.
-   If your frontend is hosted elsewhere, set `ALLOWED_ORIGINS` (comma-separated) on
-   the Cloud Run service so CORS allows that origin.
-
-Frontend (Vite + React)
-
-1. Build + push, injecting the backend URL at build time:
-
-   ```bash
-   gcloud builds submit \
-     --tag gcr.io/newsmarketpredictions/news-frontend \
-     --build-arg VITE_API_URL="https://news-api-xxxxxx-uc.a.run.app" \
-     .
-   ```
-
-2. Deploy:
-
-   ```bash
-   gcloud run deploy news-frontend \
-     --image gcr.io/newsmarketpredictions/news-frontend \
-     --region=us-west1 \
-     --allow-unauthenticated \
-     --port=8080
-   ```
-
-The published frontend URL is what you share with users on other computers. For local dev, copy `frontend/.env.example` to `.env` and run `npm run dev` after pointing `VITE_API_URL` at the locally running backend.

@@ -298,6 +298,7 @@ def load_text_models():
     tokenizer = AutoTokenizer.from_pretrained(TEXT_MODEL_NAME, cache_dir=cache_dir)
     bert_model = AutoModel.from_pretrained(TEXT_MODEL_NAME, cache_dir=cache_dir)
     bert_model.eval()
+    bert_model.to('cpu')  # Ensure consistent device with main model
     return tokenizer, bert_model
 
 
