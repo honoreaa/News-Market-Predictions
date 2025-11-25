@@ -20,6 +20,34 @@
 
 Should be good! Please reach out to haalexander@ucdavis.edu if you have any issues. 
 
+## Backend API
+
+To start the FastAPI backend server (for the frontend to connect to):
+
+       `uvicorn ML.api:app --reload --port 8000`
+
+The API will be running on `http://localhost:8000`. The backend loads the trained model and data on startup, and serves:
+- **Historical performance analysis endpoints** — Dashboard with ticker summaries, search, etc.
+- **Live prediction endpoints** — Real-time predictions using yfinance and Finnhub news
+
+Note: The backend loads everything into memory at startup, so it might take a moment to be ready. Normalization stats are computed from the training set only to avoid lookahead bias.
+
+## Live Prediction Feature
+
+The `/predict-tomorrow` endpoint uses live news data from Finnhub. To enable this feature:
+
+1. Get a free API key from [Finnhub](https://finnhub.io/register)
+2. Create a `.env` file in the project root:
+   ```
+   FINNHUB_API_KEY=your_api_key_here
+   ```
+3. Start the backend:
+   ```bash
+   uvicorn ML.api:app --reload
+   ```
+
+The free tier allows 60 API calls per minute, which is sufficient for testing and moderate usage.
+
 # Cloud Run Deployment
 
 Backend (FastAPI + Torch)
@@ -40,13 +68,13 @@ Backend (FastAPI + Torch)
      --image gcr.io/newsmarketpredictions/news-api \
      --region=us-west1 \
      --allow-unauthenticated \
-     --port=8080
+     --port=8080 \
+     --set-env-vars FINNHUB_API_KEY=your_api_key_here
    ```
 
    Copy the resulting URL; it becomes the `VITE_API_URL` for the frontend build.
    If your frontend is hosted elsewhere, set `ALLOWED_ORIGINS` (comma-separated) on
-   the Cloud Run service so CORS allows that origin, e.g.
-   `--set-env-vars ALLOWED_ORIGINS=https://newsmarketpredictions-frontend-xyz.a.run.app`.
+   the Cloud Run service so CORS allows that origin.
 
 Frontend (Vite + React)
 
@@ -69,24 +97,4 @@ Frontend (Vite + React)
      --port=8080
    ```
 
-The published frontend URL is what you share with users on other computers. For local dev, copy `frontend/.env.example` to `.env` and run `npm run dev` after pointing `VITE_API_URL` at the locally running backend (`uvicorn ML.api:app --reload`).
-
-## Live Prediction Feature
-
-The `/predict-tomorrow` endpoint uses live news data from Finnhub. To enable this feature:
-
-1. Get a free API key from [Finnhub](https://finnhub.io/register)
-2. Set the `FINNHUB_API_KEY` environment variable when running the backend:
-   ```bash
-   export FINNHUB_API_KEY=your_api_key_here
-   uvicorn ML.api:app --reload
-   ```
-3. For Cloud Run deployment, add it as an environment variable:
-   ```bash
-   gcloud run services update news-api \
-     --set-env-vars FINNHUB_API_KEY=your_api_key_here \
-     --region=us-west1
-   ```
-
-The free tier allows 60 API calls per minute, which is sufficient for testing and moderate usage.
-
+The published frontend URL is what you share with users on other computers. For local dev, copy `frontend/.env.example` to `.env` and run `npm run dev` after pointing `VITE_API_URL` at the locally running backend.

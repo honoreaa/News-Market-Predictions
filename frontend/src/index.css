@@ -1,2 +1,45 @@
 @import "tailwindcss";
 
+/* Global typography and base styles for financial analysis UI */
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: rgb(30 41 59);
+    /* slate-800 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions for interactive elements */
+* {
+    transition-property: color, background-color, border-color, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Ensure tables are readable and data-dense */
+.MuiTableCell-root {
+    font-size: 0.875rem;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(241 245 249);
+    /* slate-100 */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(203 213 225);
+    /* slate-300 */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(148 163 184);
+    /* slate-400 */
+}

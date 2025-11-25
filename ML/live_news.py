@@ -196,4 +196,3 @@ def get_today_news_embedding(ticker: str, tokenizer, bert_model) -> Tuple[torch.
     
     embedding = get_aggregated_embedding(headlines, tokenizer, bert_model)
     return embedding, len(headlines)
-
