@@ -20,3 +20,13 @@
 
 Should be good! Please reach out to haalexander@ucdavis.edu if you have any issues. 
 
+## Backend API
+
+To start the FastAPI backend server (for the frontend to connect to):
+
+       `uvicorn ML.api:app --reload --port 8000`
+
+The API will be running on `http://localhost:8000`. The backend loads the trained model and data on startup, and serves historical performance analysis endpoints. The React frontend connects to this API - make sure the backend is running before starting the frontend.
+
+Note: The backend loads everything into memory at startup, so it might take a moment to be ready. Normalization stats are computed from the training set only to avoid lookahead bias. The dashboard shows historical performance of the next-day prediction model across the entire dataset (2018-2023), not live forecasts.
+

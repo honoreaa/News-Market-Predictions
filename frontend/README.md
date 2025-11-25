@@ -1,16 +1,23 @@
-# React + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite frontend for visualizing historical ML model performance.
 
-Currently, two official plugins are available:
+1. Install dependencies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+       `cd frontend && npm install`
 
-## React Compiler
+2. Make sure the backend is running (see main README.md)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. Start the frontend dev server
 
-## Expanding the ESLint configuration
+       `npm run dev`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend will be available at `http://localhost:5173`. It connects to the backend API at `http://localhost:8000` by default. You can change this by setting `VITE_API_BASE_URL` in a `.env` file in the `frontend/` directory.
+
+The frontend provides a historical performance dashboard that shows:
+- Overall model performance metrics (all predictions vs predictions with mapped news headlines)
+- Per-ticker performance summary table with accuracy and prediction counts
+- Detailed view for any ticker showing all historical predictions
+- Headline search to find predictions by news text
+
+Note: This dashboard analyzes historical performance of the next-day prediction model across the dataset (2018-2023), distinguishing between predictions that had mapped news headlines versus those that didn't.
