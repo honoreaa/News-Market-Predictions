@@ -19,3 +19,5 @@ nbformat
 jupyter
 yfinance
 streamlit
+requests
+python-dotenv
