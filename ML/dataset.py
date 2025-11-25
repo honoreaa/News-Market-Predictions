@@ -7,19 +7,15 @@ class NewsDataset(Dataset):
     def __init__(self, embeddings_npz, meta_csv, indices=None):
         data = np.load(embeddings_npz)
         self.embeddings = data['embeddings']
-        meta = pd.read_csv(meta_csv, parse_dates=['Date'])
-        
-        # make sure lengths match up
+        meta = pd.read_csv(meta_csv, parse_dates=['Date'])       
+        # make sure lengths match up otherwise I get an error
+        # ^ bug fixed
         min_len = min(len(self.embeddings), len(meta))
         if len(self.embeddings) != len(meta):
-            print(f'Warning: Embeddings ({len(self.embeddings)}) and meta ({len(meta)}) have different lengths. Using min length: {min_len}')
             self.embeddings = self.embeddings[:min_len]
             meta = meta.iloc[:min_len].reset_index(drop=True)
         
-        if indices is None:
-            self.indices = list(range(min_len))
-        else:
-            self.indices = [i for i in indices if i < min_len]
+        self.indices = [i for i in indices if i < min_len] # indices to use
         self.meta = meta
 
     def __len__(self):
@@ -39,6 +35,8 @@ class NewsDataset(Dataset):
         
         price_feat = np.array(price_feat, dtype=float)
         label = int(row['label'])
+        
+        #source: https://docs.pytorch.org/docs/main/tensors.html 
         return {
             'emb': torch.tensor(emb, dtype=torch.float32),
             'price': torch.tensor(price_feat, dtype=torch.float32),

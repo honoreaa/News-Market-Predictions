@@ -6,6 +6,10 @@ import torch
 from pathlib import Path
 from tqdm import tqdm
 
+
+#source: documentation from https://huggingface.co/ProsusAI/finbert
+#source: https://huggingface.co/docs/transformers/main_classes/tokenizer
+#source: https://huggingface.co/docs/transformers/main/en/model_doc/auto#transformers.AutoModel.from_pretrained
 def get_model_and_tokenizer(model_name):
     # load the pretrained model from huggingface
     tokenizer = AutoTokenizer.from_pretrained(model_name)

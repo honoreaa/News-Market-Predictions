@@ -16,17 +16,6 @@ except ImportError:
     from dataset import NewsDataset
     from model import NewsClassifier
 
-def set_seed(seed=42):
-    # set all the random seeds for reproducibility
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    np.random.seed(seed)
-    random.seed(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-
 def train_model(model, train_loader, val_loader, device, epochs, lr):
     # simple gradient descent with adam optimizer
     optimizer = optim.Adam(model.parameters(), lr=lr)
@@ -51,6 +40,8 @@ def train_model(model, train_loader, val_loader, device, epochs, lr):
             loss.backward()
             optimizer.step()
             
+            #similar to what we did in class on the slides
+            #change the predictions threshold to make stricter or less stricter
             train_loss += loss.item()
             predictions = (outputs > 0.50).float()
             train_correct += (predictions == labels).sum().item()
@@ -59,7 +50,7 @@ def train_model(model, train_loader, val_loader, device, epochs, lr):
         avg_train_loss = train_loss / len(train_loader)
         train_acc = train_correct / train_total
         
-        # validation phase
+        #validation phase
         model.eval()
         val_loss = 0.0
         val_correct = 0
@@ -97,24 +88,16 @@ def main():
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
     
-    set_seed(config['training']['seed'])
-    
     device_str = config['training']['device']
-    if device_str == 'auto':
-        if torch.cuda.is_available():
-            device_str = 'cuda'
-        else:
-            device_str = 'cpu'
-    
+    device_str = 'cpu'
     device = torch.device(device_str)
-    print(f'Using device: {device}')
     
     embeddings_dir = Path(config['data']['embeddings_dir'])
     embeddings_npz = embeddings_dir / 'embeddings.npz'
     meta_csv = embeddings_dir / 'meta.csv'
     
     if not embeddings_npz.exists() or not meta_csv.exists():
-        raise FileNotFoundError(f"Embeddings not found. Please run embedding.py first.")
+        raise FileNotFoundError(f"Embeddings not found. You didn't run embedding.py first :( go do that!!! :) ")
     
     meta_df = pd.read_csv(meta_csv, parse_dates=['Date'])
     
@@ -124,22 +107,17 @@ def main():
                (meta_df['Date'] < config['training']['val_split_date'])
     
     train_indices = meta_df[train_mask].index.tolist()
-    val_indices = meta_df[val_mask].index.tolist()
-    
-    print(f'Train samples: {len(train_indices)}, Val samples: {len(val_indices)}')
-    
+    val_indices = meta_df[val_mask].index.tolist()    
     train_dataset = NewsDataset(str(embeddings_npz), str(meta_csv), indices=train_indices)
     val_dataset = NewsDataset(str(embeddings_npz), str(meta_csv), indices=val_indices)
     
     # compute normalization stats from training set only (no lookahead bias)
-    print('Computing feature normalization statistics from training set...')
     train_price_features = []
     # sample a subset for efficiency
     for i in range(min(1000, len(train_dataset))):
         sample = train_dataset[i]
         train_price_features.append(sample['price'].numpy())
     train_price_features = np.array(train_price_features)
-    
     price_mean = torch.tensor(train_price_features.mean(axis=0), dtype=torch.float32)
     price_std = torch.tensor(train_price_features.std(axis=0) + 1e-8, dtype=torch.float32)
     
