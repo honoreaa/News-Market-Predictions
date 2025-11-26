@@ -15,3 +15,7 @@ Output: Gave me a guide for how to create the compute_labels() function and the 
 3.
 Prompt: How do I set up a two column latex document like in a technical report? Also how do I embed images into the document?
 Output: Provided me a LaTeX template for the report format and example code with the graphicx library to embed images. I used the code for the two column formatting and the library for images.
+
+4.
+Prompt: I have a trained torch model and the weights for it in Python. What library can I use to generate accuracy, AUC, F1, and another classification metrics?
+Output: Gave me example code for generating the metrics using scikit-learn. I used the scikit-learn functions it suggested to generate the metrics.
