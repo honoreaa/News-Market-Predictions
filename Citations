@@ -19,3 +19,20 @@ Output: Provided me a LaTeX template for the report format and example code with
 4.
 Prompt: I have a trained torch model and the weights for it in Python. What library can I use to generate accuracy, AUC, F1, and another classification metrics?
 Output: Gave me example code for generating the metrics using scikit-learn. I used the scikit-learn functions it suggested to generate the metrics.
+
+
+5. 
+Prompt: Given 
+
+Epoch 1/10: Train Loss: 0.6947, Train Acc: 0.5156 Val Loss: 0.6926, Val Acc: 0.5175 
+Epoch 2/10: Train Loss: 0.6920, Train Acc: 0.5262 Val Loss: 0.6934, Val Acc: 0.5173 
+Epoch 3/10: Train Loss: 0.6918, Train Acc: 0.5256 Val Loss: 0.6922, Val Acc: 0.5187 
+Epoch 4/10: Train Loss: 0.6911, Train Acc: 0.5290 Val Loss: 0.6926, Val Acc: 0.5194 
+Epoch 5/10: Train Loss: 0.6898, Train Acc: 0.5295 Val Loss: 0.6934, Val Acc: 0.5193 
+Epoch 6/10: Train Loss: 0.6893, Train Acc: 0.5295 Val Loss: 0.6926, Val Acc: 0.5192 
+Epoch 7/10: Train Loss: 0.6872, Train Acc: 0.5309 Val Loss: 0.6967, Val Acc: 0.5191 
+Epoch 8/10: Train Loss: 0.6864, Train Acc: 0.5323 Val Loss: 0.6945, Val Acc: 0.5196 
+Epoch 9/10: Train Loss: 0.6852, Train Acc: 0.5315 Val Loss: 0.6925, Val Acc: 0.5197 
+
+create a function to plot the relationship between loss vs. epoch and accuracy vs. epoch  
+Output: Provided example code for visualizing the relationships between loss vs. epoch and accuracy vs. epoch using R.
