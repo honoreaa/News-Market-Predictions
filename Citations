@@ -11,3 +11,7 @@ Output: Gave me a guide for how to create the compute_labels() function and the 
         Also gave me tips on how to build out my main function. In addition, it gave me a fantastic structure to follow for my embedding.py file. I used the code provided by this 
         output as well as the documentation for FinBERT to do this file. Also pointed out that I don't need gradients for my inference and gave me the relevent code for that. I asked several
         follow-ups probing into the functionality of specific parts and rephrasing chunks of code that I thought could be useful for me to build with.
+
+3.
+Prompt: How do I set up a two column latex document like in a technical report? Also how do I embed images into the document?
+Output: Provided me a LaTeX template for the report format and example code with the graphicx library to embed images. I used the code for the two column formatting and the library for images.
