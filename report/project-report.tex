@@ -63,11 +63,11 @@ Human analysts and investors are known to struggle in predicting stock behaviour
 \noindent
 \textbf{1 Introduction}\\
 \normalsize
-Machine learning has become a staple in the field of quantitative finance for predicting stock prices, market trends, and volatility. These models outperform traditional statistical techniques by detecting and representing complex patterns in large datasets [Malanin]. 
-One of the biggest challenges is training a model that can accurately predict stock prices, given the instability and unpredictability of the stock market. Obvious approaches, such as using historical stock prices as the training dataset, have been attempted but these endeavours are often difficult due to factors such as dataset noise which makes data preprocessing very difficult. Naturally, stock prices and market prices are also often affected by other factors such as unexpected economic or social events, and investors’ psychological behaviors [Usmani and Shamsi].
-News-based modeling introduces additional complexity. Headlines vary widely in tone,  publication timing, and relevance, and their relationship to stock movement is highly nonlinear. For example, a model based on a Long Short-Term Memory (LSTM) architecture trained in 2023 attempting to predict individual stock prices based on stock-related news headlines surpassed baseline models to achieve an accuracy of around 51\%[Chen]. While this accuracy level is only slightly better than a coin flip, this performance level is still significant especially with regards to stock prediction.
-Many modern machine learning models rely heavily on technical indicators such as price, moving averages, and volume but disregard or fail to incorporate vital macroeconomic signals such as geopolitical events, inflation data, and macroeconomic news sentiment. What’s currently missing is a structured implementation of macroeconomic and company-specific news signals to current traditional stock market features. 
-In this paper, we address this gap by developing a machine learning network that integrates both macroeconomic news sentiment with traditional stock price indicators for next-day stock movement prediction. Using our preprocessed dataset we compute a set of seven commonly used stock features -  including 1-day return, log trading volume, short-term momentum (3-day and 7-day), recent volatility, price position within the daily range, and volume trend - to provide context of a stock's behavior alongside news sentiment. These features are then fused with high-dimensional news embeddings to capture interactions between market dynamics and macroeconomic sentiment.
+Machine learning has become a staple in the field of quantitative finance for predicting stock prices and market trends. These models outperform traditional statistical techniques by detecting and representing complex patterns in large datasets [Malanin]. 
+One of the biggest challenges is training a model that can accurately predict stock prices, given the unpredictability of the stock market. Obvious approaches, such as using historical stock prices as the training dataset, have been attempted but these endeavours are often difficult due to factors such as dataset noise which makes data preprocessing very difficult. Naturally, stock prices and market prices are also often affected by other factors such as unexpected economic or social events, and investors’ psychological behaviors [Usmani and Shamsi].
+News-based modeling introduces additional complexity. Headlines vary widely in tone, publication timing, and relevance, and their relationship to stock movement is highly nonlinear. For example, a model based on a Long Short-Term Memory (LSTM) architecture trained in 2023 attempting to predict individual stock prices based on stock-related news headlines surpassed baseline models to achieve an accuracy of around 51\%[Chen]. While this accuracy level is only slightly better than a coin flip, this performance level is still significant especially with regards to stock prediction.
+Many modern machine learning models rely heavily on technical indicators such as price, moving averages,  volume, and more, but disregard or fail to incorporate vital macroeconomic signals such as geopolitical events, inflation data, and macroeconomic news sentiment. What’s currently missing is a structured implementation of macroeconomic and company-specific news signals to current traditional stock market features. 
+In this paper, we address this gap by developing a machine learning network that integrates both macroeconomic news sentiment with traditional trend indicators for next-day stock movement prediction. Using our preprocessed dataset we compute a set of seven commonly used stock features -  including 1-day return, log trading volume, short-term momentum (3-day and 7-day), recent volatility, price position within the daily range, and volume trend - to provide context of a stock's behavior alongside news sentiment. These features are then fused with high-dimensional news embeddings to capture interactions between market dynamics and macroeconomic sentiment.
 Research shows that AI is most impactful when used to interpret diverse data rather than automate tasks. Its strength lies in improving prediction, decision making and product innovation which helps firms grow and increase valuation [Babina]. Our model follows this principle by combining sentiment and price based features to extract more meaningful patterns for stock movement prediction. 
 In addition, recent financial research indicates that models trained purely on historical price data struggle when markets enter new or unstable times, particularly during high-volatility or sentiment-driven periods such as early COVID-19. This motivates using sentiment driven features alongside technical indicators to improve robustness across shifting market conditions, rather than relying only on past price patterns [Begenau]. 
 We realize that due to the inherent complexities of this topic and limits on time and resources, we may not be able to make breakthroughs in model performance. Rather than creating a competitive model, we aim to produce a model that is simple, lightweight, and comparable in accuracy to models such as those defined in [Chen]. Our goal is to show that the specific interaction of features, specifically news headline sentiment and technical stock/stock movement features, has significant predictive value even when trained on less complex machine learning architectures. Our final trained model demonstrates the performance of this specific feature combination, yielding an accuracy value similar to the LSTM model in [Chen] but on a Multi-Layer Perceptron (MLP), a simpler and less computationally expensive architecture. \\\\
@@ -118,13 +118,13 @@ Our goal with the exploratory data analysis was to better understand the data’
 Our primary goal was to create a binary target variable ($y$) that captures the single most important piece of information: \textbf{Will the stock close higher tomorrow?} \\
 
 \noindent
-To answer that question, we first need tomorrow's price. We used the Pandas \textit{groupby('ticker').shift(-1)}  operation to calculate the next day's simple return ($R_{t+1}$) for each individual stock. This is key because it aligns the closing price from day $t+1$ with the features from day $t$, which prevents lookahead bias, which was one of our biggest risks (i.e., making sure we only use information available today to predict tomorrow). Lookahead bias is when we use future correlations to predict future prices, which gives us a falsely accurate result. 
+To answer that question, we first need tomorrow's price. We used the Pandas to calculate the next day's simple return ($R_{t+1}$) for each stock individually. This is key because it aligns the closing price from day $t+1$ (which is the next day) with the features from day $t$, which prevents lookahead bias, which was one of our biggest risks. Lookahead bias is when we use future correlations to predict future prices, which gives us a falsely accurate result. This simple return value was only visible to the training data.
 
 $$
 R_{t+1} = \frac{\text{Close}_{t+1}}{\text{Close}_t} - 1 = \text{future\_return\_1d}
 $$
 \subsubsection{Binary Label Creation}
-Once we have the return, $R_{t+1}$, we convert it into our final binary classification target ($\text{Label}_t$). This label is what we want our model to learn how to predict.
+Once we created the return, $R_{t+1}$, we converted it into our binary classification target ($\text{Label}_t$). This label is what we want our model to learn how to predict.
 
 $$
 \text{Label}_t =
@@ -140,7 +140,7 @@ We calculated a set of seven standard and frequently used technical features (p)
 
 \begin{enumerate}
     \item \textbf{1-Day Close Return} ($R_{1d, t}$)
-    This is the simplest way for us to determine a stocks current momentum. It tells the model if the stock has been rising or falling today.
+    This is the simplest way for us to determine a stocks current momentum. It only tells the model if the stock has been rising or falling today.
 
     \small
     $$
@@ -149,25 +149,25 @@ We calculated a set of seven standard and frequently used technical features (p)
     \normalsize
 
     \item \textbf{Log Volume} ($\text{vol\_log}_t$)
-    We also wanted to measure the volume of shares being traded. We used the natural logarithm of volume to compress this scale, making it easier for the neural network to handle especially if the volume is very large.
+    We also wanted to measure the volume of shares being traded. We used the natural logarithm of volume to compress this scale, making it easier for the neural network to handle especially if the volume is very large (can be in the millions).
     $$
     \text{vol\_log}_t = \ln(1 + \text{Volume}_t)
     $$
 
     \item \textbf{Momentum Features} ($R_{kd, t}$)
-    These features, calculated over $k=3$ and $k=7$ days, short term trends. Similar to 50 and 200-SMA, but for a shorter time period. If a stock is consistently trending, these values will be high, and we hoped this would indicate a continuation of it's current trend.
+    These features calculated over $k=3$ and $k=7$ days, represent short term trends for our model. Similar to 50 and 200-SMA, but for a shorter time period. If a stock is consistently trending, these values will be high, and we hoped this would indicate a continuation of it's current trend.
     $$
     R_{kd, t} = \frac{\text{Close}_t - \text{Close}_{t-k}}{\text{Close}_{t-k}}, \quad k \in \{3, 7\}
     $$
 
     \item \textbf{7-Day Volatility} ($\text{volatility}_{7d, t}$)
-    This feature tells the model how "risky" the stock has been lately. It's the standard deviation ($\text{Std}$) of the daily returns over the past week. High volatility often signals uncertainty or larger market moves.
+    This feature tells the model how volatile the stock has been lately. It's the standard deviation ($\text{Std}$) of the daily returns over the past week. High volatility usually signals "choppiness" or uncertainty in how the market is moving.
     $$
     \text{volatility}_{7d, t} = \text{Std}(\{R_{1d, t-6}, \dots, R_{1d, t}\})
     $$
 
     \item \textbf{Price Position} ($\text{price\_position}_t$)
-    This is a normalized value that shows where the closing price sits relative to the daily high and low. A value near 1 means the stock closed near its high, which can signal buying pressure. Conversely, closing near the low means that sellers were dominating the market. We also used $\epsilon$ to prevent an error caused by dividing zero.
+    This is a normalized value that shows where the closing price sits relative to the daily high and low. A value near 1 means the stock closed near its high, which can signal buying pressure because it means price went up, and kept going. On the other hand, closing near the low means that sellers were dominating the market because price kept moving downwards . We also used $\epsilon$ to prevent an error that was caused by dividing by zero.
     
     \scriptsize
     $$
@@ -191,9 +191,9 @@ We knew price alone wasn’t enough; we needed to capture the qualitative factor
  embedding.py script handled this by converting news headlines into a powerful numerical vector $e$. \\
 
  \noindent
- \textbf{We chose} the specialized \textbf{FinBERT} model because it was pre-trained on financial text, giving it a much better understanding of terms like "acquisition" or "earnings beat" than general models. To get a single vector $\mathbf{e} \in \mathbb{R}^{768}$ representing the headline's sentiment, \textbf{we perform} Attention-Masked Mean Pooling. This essentially takes our sequence of "words" (i.e. headlines) and transforms it into a single numerical vector
+ We chose the specialized \textbf{FinBERT} model because it was pre-trained on financial text, giving it a much better understanding of phrases and terms like "acquisition" or "earnings beat" than general models. To get a single vector $\mathbf{e} \in \mathbb{R}^{768}$ that represents the headline's overall sentiment, we performed an  Attention-Masked Mean Pooling, which took our sequence of "words" and transformed it into a single numerical vector. This made it a lot easier for us to handle the data in the context of our model.
 
-The below formula essentially calculates the weighted average of all the token vectors ($\mathbf{H}_i$) in the headline, where the weight ($\mathbf{M}_i$) makes sure we only count real words and ignore any empty "padding" tokens. Padding tokens are added to make all strings the same lengths. Instead of averaging all of our vectors (which, because of the 0 passing, would skew our output downwards), we only sum the vectors that correspond to real words by multiplying them by the mask (and thus ignoring those that are multiplied by 0).
+The below formula calculates the weighted average of all the token vectors ($\mathbf{H}_i$) in the headline, where the weight ($\mathbf{M}_i$) makes sure we only count real words and ignore any empty "padding" tokens. Padding tokens are added to make all strings the same lengths. Instead of averaging all of our vectors (which, because of the 0 passing, would skew our output downwards), we only sum the vectors that correspond to real words by multiplying them by the mask (and thus ignoring those that are multiplied by 0).
 
 $$
 \mathbf{e} = \frac{\sum_{i=1}^{L} \mathbf{H}_i \cdot \mathbf{M}_i}{\sum_{i=1}^{L} \mathbf{M}_i}
@@ -238,11 +238,11 @@ $$
 \noindent
 \textbf{2.4 Model Training}\\
 \textit{2.4.1 Loss Function}\\
-For our loss function we used the Binary Cross-Entropy Loss (L) \texttt{(nn.BCELoss)} that we learned in class. It heavily penalizes our model when its predicted probability ($\hat{y}$) is far from the true label ($y$).\\
+For our loss function we used the Binary Cross-Entropy Loss (L) that we learned in class. It heavily penalizes our model when its predicted probability ($\hat{y}$) is far from the true label ($y$).\\
 
 \noindent
 \textit{2.4.2 Update Rule}\\
-The Adam update rule is what gave us a lot of speed and success in the optimization section. It uses momentum ($\hat{\mathbf{m}}_t$) to encourage convergence in consistent directions, and adaptive scaling ($\hat{\mathbf{v}}_t$) to give each parameter its own custom learning rate.
+The Adam update rule is what gave us a lot of speed and success in the optimization section. It uses momentum ($\hat{\mathbf{m}}_t$) to encourage convergence in consistent directions, and adaptive scaling ($\hat{\mathbf{v}}_t$) to give each parameter its own custom learning rate. Custom learning rates is crucial here especially for variables of different magnitudes, and the nature of Adam is more convex than gradient descent is which makes it less likely for our model to get stuck in a local minima.
 
 $$
 \text{Parameters}_{t+1} = \text{Parameters}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon} \cdot \hat{\mathbf{m}}_t
@@ -313,20 +313,20 @@ One major limitation highlighted in similar financial prediction studies is that
 Other potential issues included coverage and news context. When merging news headlines with stocks, we achieved a 75.2\% coverage, associating 369 out of the 491 stock tickers with news headlines. About one-fourth of the stocks in the dataset had no news coverage at all, introducing a selection bias that limits our model to stocks for companies that are larger and mentioned more often in the news. In addition, the majority of news headlines turned out to be concentrated within the years 2019 and 2020. This introduces a bias within the dataset, as well as being from an unstable time period (COVID-19 pandemic) that very likely affects predictive power.\\\\
 \noindent
 \textit{4.1.3 Labeling and Technical Feature Extraction}\\
-The main issue driving our label creation was bias. As machine learning models are deployed in countless sectors, many of which where errors could be fatal, one of the most critical sources of error to be aware of are biases in data [Weijia ]. Our main concern was lookahead bias, which is when we use future correlations to predict future prices, which gives us a falsely accurate result. We had to make sure we only use information available to us “today” to make predictions of “tomorrow”. Therefore, we had to align the closing price from day t + 1 to features from day t (see “Label Generation” section). \\\\
-We decided that merely using stock price information and news headlines would not be sufficient for training and accurate models. It’s emphasized that both public and private (company internal/insider trading) information related to stocks matter significantly when it comes to modeling stock price and speculation [Saberironaghi]. As we do not have access to private information, we instead made do with seven context features calculated from publicly available market data (see Technical Feature Extraction section). This additional context about stock movement was crucial in our training. \\
+The main issue driving our label creation was bias. As machine learning models are deployed in countless sectors, many of which where errors could be fatal, one of the most critical sources of error to be aware of are biases in data [Weijia ]. Our main concern was lookahead bias, which is when we use future correlations to predict future prices, which gives us a falsely accurate result. We had to make sure we only use information available to us “today” to make predictions for “tomorrow”. Therefore, we had to align the closing price from day t + 1 to features from day t (see 2.1.5). \\\\
+We decided that merely using stock price information and news headlines would not be sufficient for training and accurate models. It’s emphasized that both public and private (company internal/insider trading) information related to stocks matter significantly when it comes to modeling stock price and speculation [Saberironaghi]. As we do not have access to private information, we instead made do with seven context features calculated from publicly available market data (see 2.1.5). This additional context about stock movement was crucial in our training. \\
 
 
 \noindent
 \textit{4.1.4 Sentiment Feature Generation}\\
-When conducting sentiment analysis on news headlines, we initially approached it very generally, associating good sentiment with conventionally positive word connotations, and bad sentiment with conventionally negative word connotations. However, we quickly realized that this approach would miss domain-specific terms ( “acquisition”, “earnings beat”, etc.) and could misidentify sentiment direction for certain terms (positive sentiment for “higher [costs]”). \\\\
-We instead decided to utilize the specialized FinBERT model, which was already pre-trained on financial texts, giving it a much better understanding of finance-related terms than general models. We additionally performed Attention-Masked Mean Pooling to improve the weights slightly by removing irrelevant token vector details.\\\\
+When conducting sentiment analysis on news headlines, we initially approached it very generally, associating good sentiment with conventionally positive word connotations, and bad sentiment with conventionally negative word connotations. However, we quickly realized that this approach would miss domain-specific terms ( “acquisition”, “earnings beat”, etc.) and could misidentify sentiment direction for certain terms (i.e. positive sentiment for “higher [costs]”). \\\\
+We instead decided to utilize the specialized FinBERT model, which was already pre-trained on financial texts, giving it a much better understanding of finance-related terms than general models. We additionally performed Attention-Masked Mean Pooling to improve the weights slightly by removing irrelevant (masked) token vector details.\\\\
 Bias in machine learning does not only originate from data collection but can also be reinforced during feature interpretation and model training especially when sentiment is extracted using generalized language models [Mehrabi]. General sentiment tools may misinterpret domain-specific terms such as “beat earnings” or “market risk,” which can lead to distorted sentiment scores. This further supports our use of FinBERT, which is trained specifically on financial text and is better aligned with the language used in news related stock movement.
 
 \noindent
 \textbf{4.2 Model Architecture}\\
 \textit{4.2.1 Input Fusion and Model Definition}\\
-Our completed input vector was a concatenation of our 768-dimensional news embedding vector ($e$) and our 7-dimensional normalized price features vector ($p_norm$). We decided to implement a Multi-Layer Perceptron due to its simplicity as well as the fact that our data is already a fixed-size input. Other architectures we considered included Recurrent Neural Networks (RNN), particularly Long Short-Term Memory (LSTM), and transformers. These were quickly excluded from consideration as we decided we would not model any sequences or time-series, which these architectures excelled at, at the cost of computational resource usage [Suresh, Harini, and John Guttag.].\\
+Our completed input vector was a concatenation of our 768-dimensional news embedding vector ($e$) and our 7-dimensional normalized price features vector ($p$). We decided to implement a Multi-Layer Perceptron due to its simplicity as well as the fact that our data is already a fixed-size input. Other architectures we considered included Recurrent Neural Networks (RNN), particularly Long Short-Term Memory (LSTM), and transformers. These were quickly excluded from consideration as we decided we would not model any sequences or time-series, which these architectures excelled at, at the cost of computational resource usage [Suresh, Harini, and John Guttag.].\\
 
 \noindent
 \textit{4.2.2 Layers and Output}\\
@@ -348,7 +348,7 @@ As we mentioned, our utilization of Binary Cross-Entropy Loss over Mean Squared 
 \noindent
 \textbf{4.4 Model Results}\\
 \textit{4.4.1 Accuracy}\\
-Overall, our model results were satisfactory and insightful. We achieved a final accuracy of just above 53\%. In terms of the problem, this accuracy value is actually a bit higher than the baseline LSTM model in [Usmani]. However, we utilized the Multi-Layer Perceptron architecture, which was simpler compared to an LSTM. The additional difference between our model and the baseline was our addition of technical features of each individual stock, which allowed us to achieve almost equal performance to the LSTM model on an MLP.\\
+Overall, our model results were satisfactory. We achieved a final accuracy of just above 53\%. In terms of the problem, this accuracy value is actually a bit higher than the baseline LSTM model in [Usmani]. However, we utilized the Multi-Layer Perceptron architecture, which was simpler compared to an LSTM. The additional difference between our model and the baseline was our addition of technical features of each individual stock, which allowed us to achieve almost equal performance to the LSTM model on an MLP.\\
 
 \noindent
 \textit{4.4.2 Evaluation (ROC)}\\
@@ -413,5 +413,6 @@ In the broader scope of stock analysis and quantitative financial machine learni
 
 
 \end{document}
+
 
 
