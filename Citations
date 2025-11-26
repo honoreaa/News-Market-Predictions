@@ -1,0 +1,13 @@
+AI Citations:
+
+1.
+Prompt: How can I implement the Adam function in my multi-layer preceptron with an optimizer and a criterion, then also using the built-in BCE loss function?
+Output: Gave me a fleshed out structure for the train_model() function definition in train.py. Showed me how to go through epochs and batches while utilizing ADAM and BCELoss in PyTorch. 
+        Also helped me figure out how to split the data and embeddings, and then complete the normalization stats from only the training set data.
+
+2.
+Prompt: How can I utilize the finbert package to compute labels from yahoo finance and to add several of my own price feature variables?
+Output: Gave me a guide for how to create the compute_labels() function and the add_price_features() function in the data_processing.py and dataset.py files. Used their example but filled it in with my own variables and calulcations.
+        Also gave me tips on how to build out my main function. In addition, it gave me a fantastic structure to follow for my embedding.py file. I used the code provided by this 
+        output as well as the documentation for FinBERT to do this file. Also pointed out that I don't need gradients for my inference and gave me the relevent code for that. I asked several
+        follow-ups probing into the functionality of specific parts and rephrasing chunks of code that I thought could be useful for me to build with.
