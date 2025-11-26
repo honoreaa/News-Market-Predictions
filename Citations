@@ -42,3 +42,15 @@ Prompt: Create a python dictionary of tickers and their corresponding keywords. 
         For GOOGL, keywords are Google, Gemini, etc. Create about 10 keywords for each ticker. The list of tickers written below:
         [list of tickers]
 Output: Returned a python dictionary of keys and corresponding tickers
+
+7.
+Prompt: What's the best approach for building a live prediction pipeline that fetches real-time news and price data for stock predictions using a trained PyTorch model?
+Usage: Used the guidance on structuring a FastAPI backend with separate modules for news fetching and feature generation as inspiration for building out the live_news.py and extending api.py with a /predict-tomorrow endpoint. Followed the recommended patterns for environment variable management and error handling.
+
+8.
+Prompt: How should I structure a React frontend to integrate with a prediction API, including handling loading states and displaying results?
+Usage: Used the suggestions for MUI component layout and async state management as a starting point for adding the live prediction UI section to App.jsx. Adapted the recommended patterns to fit the existing dashboard structure.
+
+9.
+Prompt: What are some best practices for displaying model performance metrics and prediction results in a dashboard to effectively showcase a machine learning model's capabilities?
+Usage: Used the recommendations for organizing summary statistics, ticker tables, and search functionality as inspiration for the overall dashboard layout. Applied the suggested patterns for color-coded accuracy indicators and sortable tables to make model performance easy to interpret.
