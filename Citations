@@ -36,3 +36,9 @@ Epoch 9/10: Train Loss: 0.6852, Train Acc: 0.5315 Val Loss: 0.6925, Val Acc: 0.5
 
 create a function to plot the relationship between loss vs. epoch and accuracy vs. epoch  
 Output: Provided example code for visualizing the relationships between loss vs. epoch and accuracy vs. epoch using R.
+
+6. 
+Prompt: Create a python dictionary of tickers and their corresponding keywords. For example, for AAPL, keywords are AAPL, Apple, iPhone, iPad, etc. 
+        For GOOGL, keywords are Google, Gemini, etc. Create about 10 keywords for each ticker. The list of tickers written below:
+        [list of tickers]
+Output: Returned a python dictionary of keys and corresponding tickers
