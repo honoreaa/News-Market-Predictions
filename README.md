@@ -1,6 +1,6 @@
 # Deployment Guide
 
-1. Install requirements
+1. After forking or loading into the repository --> Install requirements
 
        `pip install -r requirements.txt`
 
@@ -12,7 +12,7 @@
 
   3.a Create embeddings if they don't exist for some reason (may take 10-20 minutes depending on your device)
 
-     `python3 ML.embedding.py`
+     `python3 embedding.py`
 
 4. Run train.py
 
